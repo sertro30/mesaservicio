@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANUALES</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Color morado bajo */
+        }
+        .header {
+            background-color: #9c27b0; /* Color morado */
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 20px;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+        .header-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .header-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .header-buttons button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 20px; /* Ajusta la separación entre los botones */
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        .options-container {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .options {
+            max-height: 100px; /* Ajuste la altura máxima */
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .option-item {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.3s;
+        }
+        .option-item:last-child {
+            border-bottom: none;
+        }
+        .option-item:hover {
+            background-color: #f0f0f0;
+        }
+        .content {
+            flex: 2;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .steps {
+            list-style-type: none;
+            padding: 0;
+        }
+        .steps li {
+            margin-bottom: 10px;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .search-bar input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-logo">
+            <img src="Logo-amarillo.png" alt="Logo">
+            <div class="header-buttons">
+                <button onclick="showMenu('menu1')">MESA DE SERVICIO</button>
+                <button onclick="showMenu('menu2')">PROCESOS MASIVOS</button>
+            </div>
+        </div>
+    </div>
+    <div id="menu1Container" class="container">
+        <!-- Primer menú de opciones -->
+        <div class="options-container">
+            <h2>MESA DE SERVICIO</h2>
+            <div class="container search-bar">
+                <input type="text" id="searchBox1" placeholder="Buscar..." onkeyup="filterOptions('options1')">
+            </div>
+            <div id="options1" class="options"></div>
+        </div>
+        <!-- Contenido a la derecha para el primer menú -->
+        <div id="content1" class="content">
+            <div id="menu1Content">
+                <h2>Pasos a seguir</h2>
+                <ul id="steps1" class="steps"></ul>
+                <a id="downloadLink1" href="#" download>Descargar Archivo</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu2Container" class="container hidden">
+        <!-- Segundo menú de opciones -->
+        <div class="options-container">
+            <h2>PROCESOS MASIVOS</h2>
+            <div class="container search-bar">
+                <input type="text" id="searchBox2" placeholder="Buscar..." onkeyup="filterOptions('options2')">
+            </div>
+            <div id="options2" class="options"></div>
+        </div>
+        <!-- Contenido a la derecha para el segundo menú -->
+        <div id="content2" class="content">
+            <div id="menu2Content">
+                <h2>SOLUCIONES</h2>
+                <ul id="steps2" class="steps"></ul>
+                <a id="downloadLink2" href="#" download>Descargar Archivo</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const data1 = {
+            opcion1: {
+                steps: ["Paso 1.1", "Paso 1.2", "Paso 1.3"],
+                file: "archivo1.xlsx"
+            },
+            opcion2: {
+                steps: ["Paso 2.1", "Paso 2.2", "Paso 2.3"],
+                file: "archivo2.docx"
+            },
+            opcion3: {
+                steps: ["Paso 3.1", "Paso 3.2", "Paso 3.3"],
+                file: "archivo3.xlsx"
+            },
+            opcion4: {
+                steps: ["Paso 4.1", "Paso 4.2", "Paso 4.3"],
+                file: "archivo4.pdf"
+            },
+            opcion5: {
+                steps: ["Paso 5.1", "Paso 5.2", "Paso 5.3"],
+                file: "archivo5.txt"
+            },
+            opcion6: {
+                steps: ["Paso 6.1", "Paso 6.2", "Paso 6.3"],
+                file: "archivo6.xlsx"
+            }
+        };
+
+        const data2 = {
+            opcion7: {
+                steps: ["Paso 7.1", "Paso 7.2", "Paso 7.3"],
+                file: "archivo7.pdf"
+            },
+            opcion8: {
+                steps: ["Paso 8.1", "Paso 8.2", "Paso 8.3"],
+                file: "archivo8.txt"
+            },
+            opcion9: {
+                steps: ["Paso 9.1", "Paso 9.2", "Paso 9.3"],
+                file: "archivo9.xlsx"
+            },
+            opcion10: {
+                steps: ["Paso 10.1", "Paso 10.2", "Paso 10.3"],
+                file: "archivo10.pdf"
+            },
+            opcion11: {
+                steps: ["Paso 11.1", "Paso 11.2", "Paso 11.3"],
+                file: "archivo11.txt"
+            },
+            opcion12: {
+                steps: ["Paso 12.1", "Paso 12.2", "Paso 12.3"],
+                file: "archivo12.xlsx"
+            }
+        };
+
+        // Inicializar las opciones en el DOM
+        function initializeOptions(containerId, data) {
+            const optionsContainer = document.getElementById(containerId);
+            optionsContainer.innerHTML = ''; // Limpiar opciones previas
+            for (let key in data) {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option-item';
+                optionDiv.textContent = key.replace('opcion', 'Opción ');
+                optionDiv.setAttribute('data-value', key);
+                optionDiv.onclick = () => displayMenu(key, data, containerId);
+                optionsContainer.appendChild(optionDiv);
+            }
+        }
+
+        function filterOptions(containerId) {
+            const searchValue = document.getElementById(`searchBox${containerId.charAt(containerId.length - 1)}`).value.toLowerCase();
+            const options = document.querySelectorAll(`#${containerId} .option-item`);
+            options.forEach(option => {
+                const optionText = option.textContent.toLowerCase();
+                option.style.display = optionText.includes(searchValue) ? '' : 'none';
+            });
+        }
+
+        function displayMenu(selectedOption, data, containerId) {
+            const stepsList = document.getElementById(`steps${containerId.charAt(containerId.length - 1)}`);
+            const downloadLink = document.getElementById(`downloadLink${containerId.charAt(containerId.length - 1)}`);
+            stepsList.innerHTML = '';
+            if (selectedOption && data[selectedOption]) {
+                data[selectedOption].steps.forEach(step => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = step;
+                    stepsList.appendChild(listItem);
+                });
+                downloadLink.href = data[selectedOption].file;
+                downloadLink.textContent = `Descargar ${data[selectedOption].file}`;
+                document.getElementById(`menu${containerId.charAt(containerId.length - 1)}Content`).style.display = 'block';
+            } else {
+                document.getElementById(`menu${containerId.charAt(containerId.length - 1)}Content`).style.display = 'none';
+            }
+        }
+
+        function showMenu(menuId) {
+            document.getElementById('menu1Container').classList.add('hidden');
+            document.getElementById('menu2Container').classList.add('hidden');
+            document.getElementById(`${menuId}Container`).classList.remove('hidden');
+        }
+
+        // Inicializar las opciones cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeOptions('options1', data1);
+            initializeOptions('options2', data2);
+        });
+    </script>
+</body>
+</html>
