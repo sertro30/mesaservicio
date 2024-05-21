@@ -45,6 +45,7 @@
         }
         .container {
             display: flex;
+            flex-wrap: wrap; /* Para que los elementos se puedan mover a la siguiente línea */
             justify-content: space-between;
             padding: 20px;
             margin: 0 auto;
@@ -53,6 +54,7 @@
         .options-container {
             flex: 1;
             margin-right: 20px;
+            min-width: 280px; /* Ajuste mínimo para pantallas pequeñas */
         }
         .options {
             max-height: 100px; /* Ajuste la altura máxima */
@@ -80,10 +82,13 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            min-width: 280px; /* Ajuste mínimo para pantallas pequeñas */
         }
         .steps {
             list-style-type: none;
             padding: 0;
+            max-height: 400px; /* Ajusta la altura máxima del cuadro de pasos */
+            overflow-y: auto; /* Añade scroll si el contenido es demasiado grande */
         }
         .steps li {
             margin-bottom: 10px;
@@ -92,14 +97,45 @@
             margin-bottom: 20px;
         }
         .search-bar input[type="text"] {
-            width: 200px;
+            width: 100%; /* Ajuste para que ocupe el 100% del contenedor */
             padding: 5px;
             border-radius: 5px;
             border: 1px solid #ccc;
             margin-right: 10px;
+            box-sizing: border-box; /* Incluye padding y border en el tamaño total */
         }
         .hidden {
             display: none;
+        }
+
+        /* Media Queries para diseño responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                height: auto;
+                text-align: center;
+            }
+            .header-buttons {
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .container {
+                flex-direction: column;
+            }
+            .options-container, .content {
+                margin-right: 0;
+                margin-bottom: 20px; /* Espacio entre contenedores */
+            }
+            .search-bar input[type="text"] {
+                width: calc(100% - 20px); /* Para evitar desbordamiento en el contenedor */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-buttons button {
+                margin-left: 10px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
